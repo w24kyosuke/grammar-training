@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>中国語 語順トレーニング</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>語順トレーニング</h1>
+        <div id="progress">問題 <span id="current-question-index">1</span> / <span id="total-questions">0</span></div>
+      </header>
+      
+      <main>
+        <div class="question-container">
+          <p id="japanese-text" class="japanese-text">読み込み中...</p>
+        </div>
+
+        <div class="answer-area-container">
+          <div id="answer-area" class="answer-area">
+            <!-- 選択された単語がここに移動 -->
+          </div>
+        </div>
+
+        <div class="word-bank-container">
+          <div id="word-bank" class="word-bank">
+            <!-- 選択肢の単語がここに表示 -->
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="check-btn" class="btn primary-btn" disabled>答え合わせ</button>
+        </div>
+      </main>
+
+      <div id="feedback-modal" class="modal hidden">
+        <div class="modal-content">
+          <h2 id="feedback-title">正解！</h2>
+          <p id="feedback-explanation">解説文がここに入ります。</p>
+          <button id="next-btn" class="btn secondary-btn">次の問題へ</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
