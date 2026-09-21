@@ -19,7 +19,9 @@ const totalQuestionsEl = document.getElementById('total-questions');
 async function init() {
   try {
     const response = await fetch('./questions.json');
-    questions = await response.json();
+    let data = await response.json();
+    // 毎回ランダムに出題するためシャッフル
+    questions = data.sort(() => Math.random() - 0.5);
     totalQuestionsEl.textContent = questions.length;
     loadQuestion();
   } catch (e) {
@@ -31,6 +33,8 @@ async function init() {
 function loadQuestion() {
   if (currentQuestionIndex >= questions.length) {
     alert("全問題クリア！お疲れ様でした。");
+    // 全問クリア後に再シャッフルして最初から
+    questions.sort(() => Math.random() - 0.5);
     currentQuestionIndex = 0; // 最初から
   }
   
