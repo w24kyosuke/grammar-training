@@ -1,4 +1,5 @@
-let currentQuestionIndex = 0;
+let solvedCount = 0;
+let currentQuestion = null;
 let questions = [];
 let selectedWords = []; // 解答欄にある単語のIDリスト
 let availableWords = []; // 問題データの元のwords配列
@@ -19,9 +20,7 @@ const totalQuestionsEl = document.getElementById('total-questions');
 async function init() {
   try {
     const response = await fetch('./questions.json');
-    let data = await response.json();
-    // 毎回ランダムに出題するためシャッフル
-    questions = data.sort(() => Math.random() - 0.5);
+    questions = await response.json();
     totalQuestionsEl.textContent = questions.length;
     loadQuestion();
   } catch (e) {
@@ -31,15 +30,13 @@ async function init() {
 }
 
 function loadQuestion() {
-  if (currentQuestionIndex >= questions.length) {
-    alert("全問題クリア！お疲れ様でした。");
-    // 全問クリア後に再シャッフルして最初から
-    questions.sort(() => Math.random() - 0.5);
-    currentQuestionIndex = 0; // 最初から
-  }
+  // 500問の中から完全にランダムに1問を選ぶ
+  const randomIndex = Math.floor(Math.random() * questions.length);
+  const q = questions[randomIndex];
+  currentQuestion = q;
   
-  const q = questions[currentQuestionIndex];
-  currentIndexEl.textContent = currentQuestionIndex + 1;
+  solvedCount++;
+  currentIndexEl.textContent = solvedCount;
   japaneseTextEl.textContent = q.japanese;
   
   // 選択状態のリセット
@@ -117,7 +114,7 @@ function createWordBlock(word, inAnswerArea) {
 }
 
 function checkAnswer() {
-  const q = questions[currentQuestionIndex];
+  const q = currentQuestion;
   const isCorrect = selectedWords.join(',') === q.correctOrder.join(',');
   
   feedbackModal.classList.remove('hidden', 'correct', 'incorrect');
@@ -136,7 +133,6 @@ function checkAnswer() {
 // Event Listeners
 checkBtn.addEventListener('click', checkAnswer);
 nextBtn.addEventListener('click', () => {
-  currentQuestionIndex++;
   loadQuestion();
 });
 
