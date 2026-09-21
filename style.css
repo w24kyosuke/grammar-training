@@ -53,6 +53,7 @@ body {
   flex-direction: column;
   position: relative;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  overflow: hidden;
 }
 
 header {
@@ -204,12 +205,18 @@ main {
   border-top-right-radius: 16px;
   box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
   transform: translateY(100%);
-  transition: transform 0.3s ease-out;
   z-index: 10;
+}
+
+.modal.hidden {
+  visibility: hidden;
+  transition: transform 0.3s ease-out, visibility 0s 0.3s;
 }
 
 .modal:not(.hidden) {
   transform: translateY(0);
+  visibility: visible;
+  transition: transform 0.3s ease-out, visibility 0s 0s;
 }
 
 .modal-content {

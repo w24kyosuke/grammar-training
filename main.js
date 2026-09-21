@@ -50,6 +50,7 @@ function loadQuestion() {
   // UIリセット
   feedbackModal.classList.add('hidden');
   feedbackModal.classList.remove('correct', 'incorrect');
+  document.querySelector('main').style.pointerEvents = 'auto'; // 操作を再度有効化
   checkBtn.disabled = true;
   checkBtn.textContent = "答え合わせ";
 }
@@ -116,6 +117,9 @@ function createWordBlock(word, inAnswerArea) {
 function checkAnswer() {
   const q = currentQuestion;
   const isCorrect = selectedWords.join(',') === q.correctOrder.join(',');
+  
+  // モーダル表示中は背景の操作を無効化
+  document.querySelector('main').style.pointerEvents = 'none';
   
   feedbackModal.classList.remove('hidden', 'correct', 'incorrect');
   
